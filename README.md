@@ -15,6 +15,6 @@ https://github.com/capside/spring-cloud-lab/releases/download/preparacion/reposi
 
 Descomprímelo y copia su contenido (una carpeta llamada *repositories*) en la cache de maven. Normalmente se encuentra en ${user.home}/.m2 o %userprofile%/.m2.
 
-También necesitarás tener el soporte de Java 8 instalado, un cliente de git (https://git-scm.com) y tu IDE favorito (bueno, Eclipse también puede valer también).
+También necesitarás tener el soporte de Java 8 instalado, un cliente de git (https://git-scm.com) y tu IDE favorito (o en el peor de los casos, Eclipse).
 
 Ya tienes todo listo para poder venir al taller. Disfrútalo.
