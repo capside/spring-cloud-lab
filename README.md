@@ -15,4 +15,6 @@ https://github.com/capside/spring-cloud-lab/releases/download/preparacion/reposi
 
 Descomprímelo y copia su contenido (una carpeta llamada *repositories*) en la cache de maven. Normalmente se encuentra en ${user.home}/.m2 o %userprofile%/.m2.
 
+También necesitarás un cliente de git (https://git-scm.com) tu IDE favorito (bueno, Eclipse puede valer también).
+
 Ya tienes todo listo para poder venir al taller. Disfrútalo.
