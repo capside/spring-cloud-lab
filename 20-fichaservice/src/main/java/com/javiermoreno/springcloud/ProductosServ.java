@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
  *
  * @author ciberado
  */
-@Service
-@RefreshScope
+TODO: Registrar como servicio
+TODO: Indicar que es posible reiniciarlo mediante POST /refresh
 public class ProductosServ {
 
-    @Value("${promociones.rebajas}")
+    TODO: Recuperar valor desde configuración remota
     private boolean rebajas;
-    @Value("${promociones.descuento}")
+    TODO: Recuperar valor desde configuración remota
     private BigDecimal descuento;
 
     private final IntegracionWebservices integracion;
@@ -30,37 +30,8 @@ public class ProductosServ {
     }
     
     
-    /*  Versión síncrona ******************************************************************************
-     public Producto obtenerProducto(@PathVariable String referencia) throws IOException {
-     // Atiende qué bonito: indicas el nombre del servicio y restTemplate es capaz de recuperar su @
-     String catalogoURL = "http://catalogo-service/catalogo/referencias/" + referencia;
-     Producto producto = restTemplate.getForObject(catalogoURL, Producto.class);
-        
-     String stockURL = "http://stock-service/productos/" + referencia + "/stock";
-     String stockResponseBody = restTemplate.getForObject(stockURL, String.class);
-     JsonNode stockJson = objectMapper.readTree(stockResponseBody);
-     int unidadesDisponibles = stockJson.get("unidadesDisponibles").asInt();
-     producto.setUnidadesDisponibles(unidadesDisponibles);
-    
-     if (rebajas == true) {
-     producto.aplicarDescuento(descuento);
-     }
-        
-     return producto;
-     }
-     */
     public Producto obtenerProducto(String referencia) throws InterruptedException, ExecutionException, IOException {
-        Future<Producto> futureProducto = integracion.obtenerFichaCatalogoAsync(referencia);
-        Future<Integer> futureUnidadesDisponibles = integracion.obtenerStockAsync(referencia);
-
-        Producto producto = futureProducto.get();
-        producto.setUnidadesDisponibles(futureUnidadesDisponibles.get());
-
-        if (rebajas == true) {
-            producto.aplicarDescuento(descuento);
-        }
-
-        return producto;
+        TODO: Implementar
     }
 
 }

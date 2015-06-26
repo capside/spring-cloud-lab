@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author ciberado
  */
-@RestController
+TODO: Registrar como controlador
 public class ProductoCtrl {
 
     private final ProductosServ service;
@@ -23,7 +23,7 @@ public class ProductoCtrl {
     }
     
     
-    @RequestMapping(value="/productos/{referencia}", method=RequestMethod.GET)
+    TODO: Publicar como operación
     public Producto obtenerProductoParalelo(@PathVariable String referencia) 
     throws IOException, InterruptedException, ExecutionException {
         return service.obtenerProducto(referencia);

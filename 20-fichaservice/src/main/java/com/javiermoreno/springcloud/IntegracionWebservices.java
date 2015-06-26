@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author ciberado
  */
-@Component
+TODO: Registrar componente
 public class IntegracionWebservices {
     
     private final ObjectMapper objectMapper;
@@ -32,22 +32,15 @@ public class IntegracionWebservices {
     }
    
 
-    @Async
+    TODO: Activar asincronía
     public Future<Integer> obtenerStockAsync(String referencia) throws IOException {
-        // Atiende qué bonito: indicas el nombre del servicio y restTemplate es capaz de recuperar su @
-        String stockURL = "http://stockservice/productos/" + referencia + "/stock";
-        String stockResponseBody = restTemplate.getForObject(stockURL, String.class);
-        JsonNode stockJson = objectMapper.readTree(stockResponseBody);
-        int unidadesDisponibles = stockJson.get("unidadesDisponibles").asInt();
-        return new AsyncResult<>(unidadesDisponibles);
+        TODO: Invocar stocks
     }
 
 
-    @Async
+    TODO: Activar asincronía
     public Future<Producto> obtenerFichaCatalogoAsync(String referencia) {
-        String catalogoURL = "http://catalogoservice/catalogo/referencias/" + referencia;
-        Producto producto = restTemplate.getForObject(catalogoURL, Producto.class);
-        return new AsyncResult<>(producto);
+        TODO: Invocar catálogo
     }
     
 }

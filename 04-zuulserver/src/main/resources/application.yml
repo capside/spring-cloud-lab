@@ -12,7 +12,4 @@ eureka:
 
 zuul:
   routes:
-      stockservice: /productos/{id}/stock
-      catalogoservice: /catalogo/**
-      productosservice : /productos/{id}
-        
+    111 TODO enrutamientos

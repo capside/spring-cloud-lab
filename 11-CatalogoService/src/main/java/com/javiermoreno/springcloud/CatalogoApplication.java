@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@EnableDiscoveryClient
-@RestController
+TODO: Activar integración con Eureka
+TODO: Convertir en controlador
 public class CatalogoApplication {
 
-    @RequestMapping(value = "/catalogo/referencias/{referencia}", method = RequestMethod.GET)
+    TODO: Registrar operación
     public FichaProducto obtenerStockProducto(@PathVariable String referencia) {
         FichaProducto ficha = new FichaProducto(referencia, "Camiseta toha guapa",
                 "hombre", "negro",
