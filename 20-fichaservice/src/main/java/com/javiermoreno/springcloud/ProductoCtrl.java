@@ -21,12 +21,12 @@ public class ProductoCtrl {
     public ProductoCtrl(ProductosServ service) {
         this.service = service;
     }
-    
-    
+        
     @RequestMapping(value="/productos/{referencia}", method=RequestMethod.GET)
     public Producto obtenerProductoParalelo(@PathVariable String referencia) 
     throws IOException, InterruptedException, ExecutionException {
-        return service.obtenerProducto(referencia);
+        Producto producto = service.obtenerProducto(referencia);
+        return producto;
     }
     
     

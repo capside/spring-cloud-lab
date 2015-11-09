@@ -12,19 +12,20 @@ theme: sjaakvandenberg/cleaver-dark
 
 --
 
-##Motivaci√≥n
+##MotivaciÛn
 
-* En un mundo cloudificado no hay ninguna raz√≥n para pensar que tu proyecto no va a petarlo nunca. Be ready.
+* En un mundo cloudificado no hay ninguna razÛn para pensar que tu proyecto no va a petarlo nunca. Be ready.
 * Speed is not more important than scalability
-* No es tanto montar peque√±os programas como conseguir que hablen flu√≠damente entre ellos
+* No es tanto montar pequeÒos programas como conseguir que hablen fluÌdamente entre ellos
 
 --
 
 ##Un webservice cualquiera
 
 * https://sketchboard.me/RzqMrLEaynHv#/
+* Dependencias b·sicas: actuator, config client, eureka discovery, devtools, lombok, web
 * Las /metrics, los /health y los /trace van a hacer feliz
-* Los /env y los /beans te van a ayudar a depurar cuando est√©s triste
+* Los /env y los /beans te van a ayudar a depurar cuando estÈs triste
   
 --
 
@@ -38,18 +39,19 @@ theme: sjaakvandenberg/cleaver-dark
 ##Registro de servicios 
 
 * Eureka ftw 
-* Totalmente distribu√≠do y escrito en Go
+* Totalmente distribuÌdo y escrito en Go
 * spring-cloud-starter-eureka-server + @EnableEurekaServer es todo lo necesario para implementar un servidor
-* Eureka implementa cach√© de descubrimiento tanto en cliente como en el servidor
+* Eureka implementa cachÈ de descubrimiento tanto en cliente como en el servidor
 * Un servicio se identifica mediante su spring.application.name (normalmente dclarado en bootstrap.yml)
 * El servidor de Eureka contiene un dashboard: http://localhost:8761/
-* Tambi√©n es posible recuperar la informaci√≥n en raw: http://localhost:8761/eureka/apps
+* TambiÈn es posible recuperar la informaciÛn en raw: http://localhost:8761/eureka/apps
 * eureka.client.serviceUrl.defaultZone indica la url del servidor
 * Un cambio en el git actualiza eureka inmediateamente pero no el cliente
-* @RefreshScope permite la actualizaci√≥n de un bean basado en su configuraci√≥n
-* El refresco de la configuraci√≥n se basa en jms/rabbitmq 
-* Puede usarse para constru√≠r urls de HATEOAS
-* mvn spring-boot:run para ejecutarlo sin tener que exclu√≠r referencias a jersey (java -jar dar√° error)
+* @RefreshScope permite la actualizaciÛn de un bean basado en su configuraciÛn
+* El refresco de la configuraciÛn se basa en jms/rabbitmq 
+* Puede usarse para construÌr urls de HATEOAS
+* mvn spring-boot:run para ejecutarlo sin tener que excluÌr referencias a jersey (java -jar dar· error)
+* A menos que se explicite en la configuraciÛn si el 85% de los servicios dejan de responder al heartbeat Eureka considera que es un fallo de red y no los elimina
 
 --
 
@@ -61,37 +63,37 @@ theme: sjaakvandenberg/cleaver-dark
 
 --
 
-##Composici√≥n de webservices: Eureka + Ribbon
+##ComposiciÛn de webservices: Eureka + Ribbon
 
 * Supone el layer de valor agregado
-* spring-cloud-starter-eureka + @EnableDiscoveryClient activa la integraci√≥n con Eureka 
+* spring-cloud-starter-eureka + @EnableDiscoveryClient activa la integraciÛn con Eureka 
 * spring-cloud-starter-ribbon integra los servicios de loadbalancer en cliente
 * Ribbon se integra autom√°ticamente con RestTemplate para buscar instancias basadas en nombre de servicio 
 
 --
   
-##Configuraci√≥n din√°mica y distribu√≠da: servidor
+##ConfiguraciÛn din√°mica y distribuÌda: servidor
 
 * RTFM: http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html
 * Un buen pom vale m√°s que mil im√°genes: http://pastebin.com/HdrwsLF6
 * spring-cloud-config-server
-* Crea un grupo de ymls/properties en un repositorio git para guardar la configuraci√≥n
-* Crea un servidor con la anotaci√≥n @SpringBootApplication y @EnableConfigServer
+* Crea un grupo de ymls/properties en un repositorio git para guardar la configuraciÛn
+* Crea un servidor con la anotaciÛn @SpringBootApplication y @EnableConfigServer
 * Fija el git desde el que cargar los ficheros con spring.cloud.config.server.git.uri
 * Usa el endpoint /env para conocer su entorno 
 * Utiliza el endpoint /health para saber si est√° bien
 * Usa /trace para conocer los √∫ltimos accesos
-* curl localhost:8888/promociones/default para recuperar la rama default de la aplicaci√≥n promociones 
+* curl localhost:8888/promociones/default para recuperar la rama default de la aplicaciÛn promociones 
 * Puedes usar branches para varios escenarios (dev, stage, prod)
 * Cambiar un valor en el git se refleja inmediatamente en /promociones/default 
 
 --
 
-##Configuraci√≥n din√°mica y distribu√≠da: cliente
+##ConfiguraciÛn din√°mica y distribuÌda: cliente
 
 * spring-cloud-config-client
-* spring.cloud.config.uri indica d√≥nde buscar la configuraci√≥n 
-* @RefreshScope para indicar que debe recargarse ante un cambio de configuraci√≥n
+* spring.cloud.config.uri indica dÛnde buscar la configuraciÛn 
+* @RefreshScope para indicar que debe recargarse ante un cambio de configuraciÛn
 * GET /env permite comprobar el valor de las variables en todo momento
 * POST /refresh recrea los beans marcados con @RefreshScope
 * POST /restart para reiniciar el contexto (desactivado por defecto)
@@ -102,42 +104,46 @@ theme: sjaakvandenberg/cleaver-dark
 
 * Enrutado para microservicios (load balancer, proxy inverso, whatever)
 * Edge endpoint 
-* Autentificaci√≥n, log, routing din√°mico, etc
+* AutentificaciÛn, log, routing din√°mico, etc
 * Integrado con Eureka y Hystrix 
 * @EnableZuulProxy (para enrutar) y @EnableZuulServer (para solo filtrar)
-* Cuidado con subir ficheros grandes a trav√©s de √©l sin configurarlo correctamente
+* Cuidado con subir ficheros grandes a travÈs de Èl sin configurarlo correctamente
 
 --
 
 ##Circuit breakers
 
 * Hystrix ftw
-* Si un servicio no est√° disponible salta a una implementaci√≥n alternativa
+* Si un servicio no est√° disponible salta a una implementaciÛn alternativa
 * Evita bloquear en cascada m√∫ltiples servicios 
 * @EnableCircuitBreaker para activar en un punto de la cadena de servicios 
 * @EnableHystrixDashBoard
 * Permite reabrir parcialmente el servicio si detecta que se ha corregido
-* Fail: problemas con el c√≥digo as√≠ncrono
+* Fail: problemas con el cÛndigo asÌncrono
 
 --
 
 ##Edge services
 
 * Zuul funciona como un punto de entrada en el sistema
-* Permite centralizar la autorizaci√≥n
+* Permite centralizar la autorizaciÛn
 * Agrega webservices para reducir CORS
 * ¬°Es un proxy layer 7! Perfecto para apis bonitas
 
 --
 
-##M√°s madera
+##M·s madera
 
 * Ribbon
 * OAuth2
 * Connector para AWS
 
+##Las rutas
 
-
+* stock: http://localhost:55222/productos/1000/stock
+* catalogo: http://localhost:8080/referencias/1000
+* productos: http://localhost:55377/productos/1000
+* zuul: http://localhost:8000/productos/1000
 
 
  

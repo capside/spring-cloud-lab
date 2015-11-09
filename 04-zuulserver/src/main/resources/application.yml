@@ -12,7 +12,7 @@ eureka:
 
 zuul:
   routes:
-      stockservice: /productos/{id}/stock
-      catalogoservice: /catalogo/**
       productosservice : /productos/{id}
+#      stockservice: /productos/{id}/stock
+#      catalogoservice: /catalogo/**
         

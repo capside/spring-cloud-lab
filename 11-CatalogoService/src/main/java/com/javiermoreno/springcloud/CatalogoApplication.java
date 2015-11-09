@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CatalogoApplication {
 
-    @RequestMapping(value = "/catalogo/referencias/{referencia}", method = RequestMethod.GET)
+    @RequestMapping(value = "/referencias/{referencia}", method = RequestMethod.GET)
     public FichaProducto obtenerStockProducto(@PathVariable String referencia) {
-        FichaProducto ficha = new FichaProducto(referencia, "Camiseta toha guapa",
+        FichaProducto ficha = new FichaProducto(referencia, "Camiseta",
                 "hombre", "negro",
                 "http://www.vivefiestas.com/blog/wp-content/uploads/2015/05/camiseta-orgullo-friki-2008.png",
                 new BigDecimal("100"));

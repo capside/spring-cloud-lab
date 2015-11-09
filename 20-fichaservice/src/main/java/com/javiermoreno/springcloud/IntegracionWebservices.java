@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.javiermoreno.springcloud;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -37,6 +32,7 @@ public class IntegracionWebservices {
         // Atiende qué bonito: indicas el nombre del servicio y restTemplate es capaz de recuperar su @
         String stockURL = "http://stockservice/productos/" + referencia + "/stock";
         String stockResponseBody = restTemplate.getForObject(stockURL, String.class);
+        // No vamos a crear un DTO solo para extraer las unidades disponibles
         JsonNode stockJson = objectMapper.readTree(stockResponseBody);
         int unidadesDisponibles = stockJson.get("unidadesDisponibles").asInt();
         return new AsyncResult<>(unidadesDisponibles);
@@ -45,7 +41,7 @@ public class IntegracionWebservices {
 
     @Async
     public Future<Producto> obtenerFichaCatalogoAsync(String referencia) {
-        String catalogoURL = "http://catalogoservice/catalogo/referencias/" + referencia;
+        String catalogoURL = "http://catalogoservice/referencias/" + referencia;
         Producto producto = restTemplate.getForObject(catalogoURL, Producto.class);
         return new AsyncResult<>(producto);
     }
