@@ -10,7 +10,7 @@ theme: sjaakvandenberg/cleaver-dark
 
 #Spring Cloud
 
---
+
 
 ##Motivación
 
@@ -18,7 +18,7 @@ theme: sjaakvandenberg/cleaver-dark
 * Speed is not more important than scalability
 * No es tanto montar pequeños programas como conseguir que hablen fluídamente entre ellos
 
---
+
 
 ##Un webservice cualquiera
 
@@ -27,14 +27,12 @@ theme: sjaakvandenberg/cleaver-dark
 * Las /metrics, los /health y los /trace van a hacer feliz
 * Los /env y los /beans te van a ayudar a depurar cuando estés triste
   
---
+
 
 ##The fucking manual
 
 * https://github.com/spring-cloud-samples
-* http://martinfowler.com/bliki/
 
---
 
 ##Registro de servicios 
 
@@ -53,7 +51,7 @@ theme: sjaakvandenberg/cleaver-dark
 * mvn spring-boot:run para ejecutarlo sin tener que excluír referencias a jersey (java -jar dará error)
 * A menos que se explicite en la configuración si el 85% de los servicios dejan de responder al heartbeat Eureka considera que es un fallo de red y no los elimina
 
---
+
 
 ##Registro en Eureka
 
@@ -61,7 +59,7 @@ theme: sjaakvandenberg/cleaver-dark
 * @EnableDiscoveryClient
 * Ojo: por defecto ejecutar varios clientes en la misma mÃ¡quina harÃ¡ que solo se registre uno de ellos (ver Making the Eureka Instance ID Unique) 
 
---
+
 
 ##Composición de webservices: Eureka + Ribbon
 
@@ -70,9 +68,9 @@ theme: sjaakvandenberg/cleaver-dark
 * spring-cloud-starter-ribbon integra los servicios de loadbalancer en cliente
 * Ribbon se integra automÃ¡ticamente con RestTemplate para buscar instancias basadas en nombre de servicio 
 
---
+
   
-##Configuración dinÃ¡mica y distribuída: servidor
+##Configuración dinámica y distribuída: servidor
 
 * RTFM: http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html
 * Un buen pom vale mÃ¡s que mil imÃ¡genes: http://pastebin.com/HdrwsLF6
@@ -81,13 +79,13 @@ theme: sjaakvandenberg/cleaver-dark
 * Crea un servidor con la anotación @SpringBootApplication y @EnableConfigServer
 * Fija el git desde el que cargar los ficheros con spring.cloud.config.server.git.uri
 * Usa el endpoint /env para conocer su entorno 
-* Utiliza el endpoint /health para saber si estÃ¡ bien
-* Usa /trace para conocer los Ãºltimos accesos
+* Utiliza el endpoint /health para saber si están bien
+* Usa /trace para conocer los últimos accesos
 * curl localhost:8888/promociones/default para recuperar la rama default de la aplicación promociones 
 * Puedes usar branches para varios escenarios (dev, stage, prod)
 * Cambiar un valor en el git se refleja inmediatamente en /promociones/default 
 
---
+
 
 ##Configuración dinÃ¡mica y distribuída: cliente
 
@@ -98,7 +96,7 @@ theme: sjaakvandenberg/cleaver-dark
 * POST /refresh recrea los beans marcados con @RefreshScope
 * POST /restart para reiniciar el contexto (desactivado por defecto)
 
---
+
 
 ##Zuul
 
@@ -109,7 +107,7 @@ theme: sjaakvandenberg/cleaver-dark
 * @EnableZuulProxy (para enrutar) y @EnableZuulServer (para solo filtrar)
 * Cuidado con subir ficheros grandes a través de él sin configurarlo correctamente
 
---
+
 
 ##Circuit breakers
 
@@ -121,7 +119,7 @@ theme: sjaakvandenberg/cleaver-dark
 * Permite reabrir parcialmente el servicio si detecta que se ha corregido
 * Fail: problemas con el cóndigo asíncrono
 
---
+
 
 ##Edge services
 
@@ -130,7 +128,7 @@ theme: sjaakvandenberg/cleaver-dark
 * Agrega webservices para reducir CORS
 * ¡Es un proxy layer 7! Perfecto para apis bonitas
 
---
+
 
 ##Las rutas
 

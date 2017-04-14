@@ -1,6 +1,7 @@
 package com.javiermoreno.springcloud;
 
 import java.math.BigDecimal;
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @EnableDiscoveryClient
 @RestController
+@CommonsLog
 public class CatalogoApplication {
 
     @RequestMapping(value = "/referencias/{referencia}", method = RequestMethod.GET)
-    public FichaProducto obtenerStockProducto(@PathVariable String referencia) {
+    public FichaProducto obtenerFichaProducto(@PathVariable String referencia) {
+        log.info(String.format("Recuperando ficha del producto %s.", referencia));
         FichaProducto ficha = new FichaProducto(referencia, "Camiseta",
                 "hombre", "negro",
                 "http://www.vivefiestas.com/blog/wp-content/uploads/2015/05/camiseta-orgullo-friki-2008.png",

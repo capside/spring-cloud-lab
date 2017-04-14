@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.concurrent.Future;
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
  * @author ciberado
  */
 @Component
+@CommonsLog
 public class IntegracionWebservices {
     
     private final ObjectMapper objectMapper;
@@ -29,6 +31,7 @@ public class IntegracionWebservices {
 
     @Async
     public Future<Integer> obtenerStockAsync(String referencia) throws IOException {
+        log.info(String.format("Obteniendo stock remoto asíncronamente para %s.", referencia));
         // Atiende qué bonito: indicas el nombre del servicio y restTemplate es capaz de recuperar su @
         String stockURL = 
                 "http://stockservice/productos/" + referencia + "/stock";
@@ -45,6 +48,7 @@ public class IntegracionWebservices {
 
     @Async
     public Future<Producto> obtenerFichaCatalogoAsync(String referencia) {
+        log.info(String.format("Obteniendo ficha remota asíncronamente para %s.", referencia));
         String catalogoURL = 
                 "http://catalogoservice/referencias/" + referencia;
         Producto producto = 
