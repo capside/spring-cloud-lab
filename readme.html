@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+  <title>README.md</title>
+  <link rel="stylesheet" href="modest.css">
+</head>
+<body>
+<h1 id="spring-cloud">Spring Cloud</h1>
+<img src="esquema.png" alt="Arquitectura general"></p>
+<h2 id="motivaci-n">Motivación</h2>
+<ul>
+<li>En un mundo cloudificado no hay ninguna razón para pensar que tu proyecto no va a petarlo nunca. Be ready.</li>
+<li>Speed is not more important than scalability</li>
+<li>No es tanto montar pequeños programas como conseguir que hablen fluídamente entre ellos</li>
+</ul>
+<h2 id="un-webservice-cualquiera">Un webservice cualquiera</h2>
+<ul>
+<li><a href="https://sketchboard.me/RzqMrLEaynHv#/">https://sketchboard.me/RzqMrLEaynHv#/</a></li>
+<li>Dependencias básicas: actuator, config client, eureka discovery, devtools, lombok, web</li>
+<li>Las /metrics, los /health y los /trace van a hacer feliz</li>
+<li>Los /env y los /beans te van a ayudar a depurar cuando estés triste</li>
+</ul>
+<h2 id="the-fucking-manual">The fucking manual</h2>
+<ul>
+<li><a href="https://github.com/spring-cloud-samples">https://github.com/spring-cloud-samples</a></li>
+</ul>
+<h2 id="registro-de-servicios">Registro de servicios</h2>
+<ul>
+<li>Eureka ftw </li>
+<li>Totalmente distribuído y escrito en Go</li>
+<li>spring-cloud-starter-eureka-server + @EnableEurekaServer es todo lo necesario para implementar un servidor</li>
+<li>Eureka implementa caché de descubrimiento tanto en cliente como en el servidor</li>
+<li>Un servicio se identifica mediante su spring.application.name (normalmente dclarado en bootstrap.yml)</li>
+<li>El servidor de Eureka contiene un dashboard: <a href="http://localhost:8761/">http://localhost:8761/</a></li>
+<li>También es posible recuperar la información en raw: <a href="http://localhost:8761/eureka/apps">http://localhost:8761/eureka/apps</a></li>
+<li>eureka.client.serviceUrl.defaultZone indica la url del servidor</li>
+<li>Un cambio en el git actualiza eureka inmediateamente pero no el cliente</li>
+<li>@RefreshScope permite la actualización de un bean basado en su configuración</li>
+<li>El refresco de la configuración se basa en jms/rabbitmq </li>
+<li>Puede usarse para construír urls de HATEOAS</li>
+<li>mvn spring-boot:run para ejecutarlo sin tener que excluír referencias a jersey (java -jar dará error)</li>
+<li>A menos que se explicite en la configuración si el 85% de los servicios dejan de responder al heartbeat Eureka considera que es un fallo de red y no los elimina</li>
+</ul>
+<h2 id="registro-en-eureka">Registro en Eureka</h2>
+<ul>
+<li>server.port=0 para indicar que se desea un puerto arbitrario</li>
+<li>@EnableDiscoveryClient</li>
+<li>Ojo: por defecto ejecutar varios clientes en la misma mÃ¡quina harÃ¡ que solo se registre uno de ellos (ver Making the Eureka Instance ID Unique) </li>
+</ul>
+<h2 id="composici-n-de-webservices-eureka-ribbon">Composición de webservices: Eureka + Ribbon</h2>
+<ul>
+<li>Supone el layer de valor agregado</li>
+<li>spring-cloud-starter-eureka + @EnableDiscoveryClient activa la integración con Eureka </li>
+<li>spring-cloud-starter-ribbon integra los servicios de loadbalancer en cliente</li>
+<li>Ribbon se integra automÃ¡ticamente con RestTemplate para buscar instancias basadas en nombre de servicio </li>
+</ul>
+<h2 id="configuraci-n-din-mica-y-distribu-da-servidor">Configuración dinámica y distribuída: servidor</h2>
+<ul>
+<li>RTFM: <a href="http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html">http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html</a></li>
+<li>Un buen pom vale mÃ¡s que mil imÃ¡genes: <a href="http://pastebin.com/HdrwsLF6">http://pastebin.com/HdrwsLF6</a></li>
+<li>spring-cloud-config-server</li>
+<li>Crea un grupo de ymls/properties en un repositorio git para guardar la configuración</li>
+<li>Crea un servidor con la anotación @SpringBootApplication y @EnableConfigServer</li>
+<li>Fija el git desde el que cargar los ficheros con spring.cloud.config.server.git.uri</li>
+<li>Usa el endpoint /env para conocer su entorno </li>
+<li>Utiliza el endpoint /health para saber si están bien</li>
+<li>Usa /trace para conocer los últimos accesos</li>
+<li>curl localhost:8888/promociones/default para recuperar la rama default de la aplicación promociones </li>
+<li>Puedes usar branches para varios escenarios (dev, stage, prod)</li>
+<li>Cambiar un valor en el git se refleja inmediatamente en /promociones/default </li>
+</ul>
+<h2 id="configuraci-n-din-mica-y-distribu-da-cliente">Configuración dinámica y distribuída: cliente</h2>
+<ul>
+<li>spring-cloud-config-client</li>
+<li>spring.cloud.config.uri indica dónde buscar la configuración </li>
+<li>@RefreshScope para indicar que debe recargarse ante un cambio de configuración</li>
+<li>GET /env permite comprobar el valor de las variables en todo momento</li>
+<li>POST /refresh recrea los beans marcados con @RefreshScope</li>
+<li>POST /restart para reiniciar el contexto (desactivado por defecto)</li>
+</ul>
+<h2 id="zuul">Zuul</h2>
+<ul>
+<li>Enrutado para microservicios (load balancer, proxy inverso, whatever)</li>
+<li>Edge endpoint </li>
+<li>Autentificación, log, routing dinÃ¡mico, etc</li>
+<li>Integrado con Eureka y Hystrix </li>
+<li>@EnableZuulProxy (para enrutar) y @EnableZuulServer (para solo filtrar)</li>
+<li>Cuidado con subir ficheros grandes a través de él sin configurarlo correctamente</li>
+</ul>
+<h2 id="sleuth">Sleuth</h2>
+<ul>
+<li>Permite tracibilidad entre flotas de microservicios y servidores</li>
+<li>Un <em>span</em> es una unidad de invocación</li>
+<li>Los spans pueden anidarse y agruparse<ul>
+<li>Automáticamente</li>
+<li><a href="https://cloud.spring.io/spring-cloud-sleuth/spring-cloud-sleuth.html#_managing_spans_with_annotations">Mediante anotaciones</a></li>
+</ul>
+</li>
+<li>Un <em>trace</em> es un árbol de spans</li>
+<li>Se integra automáticamente con RestTemplate y SpringCloud</li>
+<li>Agrega a cada log service-name, trace-id, span-id</li>
+<li>Puede configurarse con spring.sleuth.sampler.percentage</li>
+</ul>
+<h2 id="zipkin">Zipkin</h2>
+<ul>
+<li>Permite agregar spans y visualizar traces<pre><code>git clone https://github.com/openzipkin/zipkin/tree/master/zipkin-ui
+cd docker-zipkin
+docker-compose up
+</code></pre></li>
+<li><a href="http://localhost:9411">http://localhost:9411</a></li>
+</ul>
+<h2 id="circuit-breakers">Circuit breakers</h2>
+<ul>
+<li>Hystrix ftw</li>
+<li>Si un servicio no está disponible salta a una implementación alternativa</li>
+<li>Evita bloquear en cascada múltiples servicios </li>
+<li>@EnableCircuitBreaker para activar en un punto de la cadena de servicios </li>
+<li>@EnableHystrixDashBoard</li>
+<li>Permite reabrir parcialmente el servicio si detecta que se ha corregido</li>
+<li>Fail: problemas con el cóndigo asíncrono</li>
+</ul>
+<h2 id="edge-services">Edge services</h2>
+<ul>
+<li>Zuul funciona como un punto de entrada en el sistema</li>
+<li>Permite centralizar la autorización</li>
+<li>Agrega webservices para reducir CORS</li>
+<li>¡Es un proxy layer 7! Perfecto para apis bonitas</li>
+</ul>
+<h2 id="las-rutas">Las rutas</h2>
+<ul>
+<li>eureka: <a href="http://localhost:8761">http://localhost:8761</a></li>
+<li>stock: <a href="http://localhost:55222/productos/1000/stock">http://localhost:55222/productos/1000/stock</a></li>
+<li>catalogo: <a href="http://localhost:8080/referencias/1000">http://localhost:8080/referencias/1000</a></li>
+<li>productos: <a href="http://localhost:55377/productos/1000">http://localhost:55377/productos/1000</a></li>
+<li>zuul: <a href="http://localhost:8000/productos/1000">http://localhost:8000/productos/1000</a></li>
+<li>zipking: <a href="http://localhost:9411">http://localhost:9411</a></li>
+</ul>
+</body>
+</html>
