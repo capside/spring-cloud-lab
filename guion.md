@@ -132,28 +132,15 @@ theme: sjaakvandenberg/cleaver-dark
 
 --
 
-##Más madera
-
-* Ribbon
-* OAuth2
-* Connector para AWS
-
 ##Las rutas
 
+* eureka: http://localhost:8761
 * stock: http://localhost:55222/productos/1000/stock
 * catalogo: http://localhost:8080/referencias/1000
 * productos: http://localhost:55377/productos/1000
 * zuul: http://localhost:8000/productos/1000
 
-##Los artefactos
 
-http://ciberado.blob.core.windows.net/artifacts/configserver-0.0.1-SNAPSHOT.jar
-http://ciberado.blob.core.windows.net/artifacts/eurekaRegistry-0.0.1-SNAPSHOT.jar
-http://ciberado.blob.core.windows.net/artifacts/catalogoservice-0.0.1-SNAPSHOT.jar
-http://ciberado.blob.core.windows.net/artifacts/catalogoservice-0.0.1-SNAPSHOT.jar
-http://ciberado.blob.core.windows.net/artifacts/productoservice-0.0.1-SNAPSHOT.jar
-http://ciberado.blob.core.windows.net/artifacts/zuulserver-0.0.1-SNAPSHOT.jar
- 
 
 
 
