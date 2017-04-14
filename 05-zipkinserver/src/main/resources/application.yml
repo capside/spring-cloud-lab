@@ -1,0 +1,14 @@
+server:
+  port: 9411
+
+spring:
+  application: 
+    name: zipkinserver
+  cloud:
+    stream:
+      bindings:
+        sleuth-stream-save:
+          destination: sleuth-stream-save
+          group: sleuth-stream
+          content-type: application/json
+          

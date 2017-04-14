@@ -8,11 +8,11 @@ theme: sjaakvandenberg/cleaver-dark
 
 
 
-#Spring Cloud
+# Spring Cloud
 
 
 
-##Motivación
+## Motivación
 
 * En un mundo cloudificado no hay ninguna razón para pensar que tu proyecto no va a petarlo nunca. Be ready.
 * Speed is not more important than scalability
@@ -20,7 +20,7 @@ theme: sjaakvandenberg/cleaver-dark
 
 
 
-##Un webservice cualquiera
+## Un webservice cualquiera
 
 * https://sketchboard.me/RzqMrLEaynHv#/
 * Dependencias básicas: actuator, config client, eureka discovery, devtools, lombok, web
@@ -29,12 +29,12 @@ theme: sjaakvandenberg/cleaver-dark
   
 
 
-##The fucking manual
+## The fucking manual
 
 * https://github.com/spring-cloud-samples
 
 
-##Registro de servicios 
+## Registro de servicios 
 
 * Eureka ftw 
 * Totalmente distribuído y escrito en Go
@@ -53,7 +53,7 @@ theme: sjaakvandenberg/cleaver-dark
 
 
 
-##Registro en Eureka
+## Registro en Eureka
 
 * server.port=0 para indicar que se desea un puerto arbitrario
 * @EnableDiscoveryClient
@@ -61,7 +61,7 @@ theme: sjaakvandenberg/cleaver-dark
 
 
 
-##Composición de webservices: Eureka + Ribbon
+## Composición de webservices: Eureka + Ribbon
 
 * Supone el layer de valor agregado
 * spring-cloud-starter-eureka + @EnableDiscoveryClient activa la integración con Eureka 
@@ -70,7 +70,7 @@ theme: sjaakvandenberg/cleaver-dark
 
 
   
-##Configuración dinámica y distribuída: servidor
+## Configuración dinámica y distribuída: servidor
 
 * RTFM: http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html
 * Un buen pom vale mÃ¡s que mil imÃ¡genes: http://pastebin.com/HdrwsLF6
@@ -87,7 +87,7 @@ theme: sjaakvandenberg/cleaver-dark
 
 
 
-##Configuración dinÃ¡mica y distribuída: cliente
+## Configuración dinámica y distribuída: cliente
 
 * spring-cloud-config-client
 * spring.cloud.config.uri indica dónde buscar la configuración 
@@ -98,7 +98,7 @@ theme: sjaakvandenberg/cleaver-dark
 
 
 
-##Zuul
+## Zuul
 
 * Enrutado para microservicios (load balancer, proxy inverso, whatever)
 * Edge endpoint 
@@ -107,9 +107,29 @@ theme: sjaakvandenberg/cleaver-dark
 * @EnableZuulProxy (para enrutar) y @EnableZuulServer (para solo filtrar)
 * Cuidado con subir ficheros grandes a través de él sin configurarlo correctamente
 
+## Sleuth
 
+* Permite tracibilidad entre flotas de microservicios y servidores
+* Un *span* es una unidad de invocación
+* Los spans pueden anidarse y agruparse
+	* Automáticamente
+	* [Mediante anotaciones](https://cloud.spring.io/spring-cloud-sleuth/spring-cloud-sleuth.html#_managing_spans_with_annotations)
+* Un *trace* es un árbol de spans
+* Se integra automáticamente con RestTemplate y SpringCloud
+* Agrega a cada log service-name, trace-id, span-id
+* Puede configurarse con spring.sleuth.sampler.percentage
 
-##Circuit breakers
+## Zipkin
+
+* Permite agregar spans y visualizar traces
+```
+git clone https://github.com/openzipkin/zipkin/tree/master/zipkin-ui
+cd docker-zipkin
+docker-compose up
+```
+* http://localhost:9411
+
+## Circuit breakers
 
 * Hystrix ftw
 * Si un servicio no estÃ¡ disponible salta a una implementación alternativa
@@ -119,9 +139,7 @@ theme: sjaakvandenberg/cleaver-dark
 * Permite reabrir parcialmente el servicio si detecta que se ha corregido
 * Fail: problemas con el cóndigo asíncrono
 
-
-
-##Edge services
+## Edge services
 
 * Zuul funciona como un punto de entrada en el sistema
 * Permite centralizar la autorización
@@ -137,6 +155,7 @@ theme: sjaakvandenberg/cleaver-dark
 * catalogo: http://localhost:8080/referencias/1000
 * productos: http://localhost:55377/productos/1000
 * zuul: http://localhost:8000/productos/1000
+* zipking: http://localhost:9411
 
 
 
