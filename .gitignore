@@ -17,3 +17,4 @@ target/
 nbactions.xml
 mvnw*.*
 /nbproject/
+*.log
