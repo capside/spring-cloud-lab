@@ -128,7 +128,7 @@ theme: sjaakvandenberg/cleaver-dark
 * Zuul funciona como un punto de entrada en el sistema
 * Permite centralizar la autorización
 * Agrega webservices para reducir CORS
-* Â¡Es un proxy layer 7! Perfecto para apis bonitas
+* ¡Es un proxy layer 7! Perfecto para apis bonitas
 
 --
 
@@ -145,7 +145,14 @@ theme: sjaakvandenberg/cleaver-dark
 * productos: http://localhost:55377/productos/1000
 * zuul: http://localhost:8000/productos/1000
 
+##Los artefactos
 
+http://ciberado.blob.core.windows.net/artifacts/configserver-0.0.1-SNAPSHOT.jar
+http://ciberado.blob.core.windows.net/artifacts/eurekaRegistry-0.0.1-SNAPSHOT.jar
+http://ciberado.blob.core.windows.net/artifacts/catalogoservice-0.0.1-SNAPSHOT.jar
+http://ciberado.blob.core.windows.net/artifacts/catalogoservice-0.0.1-SNAPSHOT.jar
+http://ciberado.blob.core.windows.net/artifacts/productoservice-0.0.1-SNAPSHOT.jar
+http://ciberado.blob.core.windows.net/artifacts/zuulserver-0.0.1-SNAPSHOT.jar
  
 
 

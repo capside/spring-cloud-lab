@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StockApplication {
 
-    @RequestMapping(value="/productos/{referencia}/stock", method = RequestMethod.GET)
-    public StockProducto obtenerStockProducto(@PathVariable String referencia)  {
-        StockProducto prod = new StockProducto(referencia, (int) (Math.random()*10));
+    @RequestMapping(value = "/productos/{referencia}/stock", method = RequestMethod.GET)
+    public StockProducto obtenerStockProducto(@PathVariable String referencia) {
+        StockProducto prod = new StockProducto(referencia, (int) (Math.random() * 10));
         return prod;
     }
-    
+
     public static void main(String[] args) {
         SpringApplication.run(StockApplication.class, args);
     }

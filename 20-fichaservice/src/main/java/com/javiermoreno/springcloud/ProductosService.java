@@ -10,12 +10,14 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 /**
+ * 
+ * Permite invocar los webservices de los que depende el actual.
  *
  * @author ciberado
  */
 @Service
 @RefreshScope
-public class ProductosServ {
+public class ProductosService {
 
     @Value("${promociones.rebajas}")
     private boolean rebajas;
@@ -25,10 +27,13 @@ public class ProductosServ {
     private final IntegracionWebservices integracion;
 
     @Autowired
-    public ProductosServ(IntegracionWebservices integracion) {
+    public ProductosService(IntegracionWebservices integracion) {
         this.integracion = integracion;
     }
-    
+
+    /* Alternativamente, si no se requiere un proceso sofisticado de la respuesta,
+       es posible evitar @async utilizando AsyncRestTemplate.
+    */
     
     /*  Versión síncrona ******************************************************************************
      public Producto obtenerProducto(@PathVariable String referencia) throws IOException {
@@ -49,9 +54,12 @@ public class ProductosServ {
      return producto;
      }
      */
-    public Producto obtenerProducto(String referencia) throws InterruptedException, ExecutionException, IOException {
-        Future<Producto> futureProducto = integracion.obtenerFichaCatalogoAsync(referencia);
-        Future<Integer> futureUnidadesDisponibles = integracion.obtenerStockAsync(referencia);
+    public Producto obtenerProducto(String referencia)
+            throws InterruptedException, ExecutionException, IOException {
+        Future<Producto> futureProducto
+                = integracion.obtenerFichaCatalogoAsync(referencia);
+        Future<Integer> futureUnidadesDisponibles
+                = integracion.obtenerStockAsync(referencia);
 
         Producto producto = futureProducto.get();
         producto.setUnidadesDisponibles(futureUnidadesDisponibles.get());

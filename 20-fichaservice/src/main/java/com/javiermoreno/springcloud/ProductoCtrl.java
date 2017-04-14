@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProductoCtrl {
 
-    private final ProductosServ service;
+    private final ProductosService service;
 
     @Autowired
-    public ProductoCtrl(ProductosServ service) {
+    public ProductoCtrl(ProductosService service) {
         this.service = service;
     }
         

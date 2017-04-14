@@ -30,20 +30,34 @@ public class IntegracionWebservices {
     @Async
     public Future<Integer> obtenerStockAsync(String referencia) throws IOException {
         // Atiende qué bonito: indicas el nombre del servicio y restTemplate es capaz de recuperar su @
-        String stockURL = "http://stockservice/productos/" + referencia + "/stock";
-        String stockResponseBody = restTemplate.getForObject(stockURL, String.class);
+        String stockURL = 
+                "http://stockservice/productos/" + referencia + "/stock";
+        String stockResponseBody = 
+                restTemplate.getForObject(stockURL, String.class);
         // No vamos a crear un DTO solo para extraer las unidades disponibles
-        JsonNode stockJson = objectMapper.readTree(stockResponseBody);
-        int unidadesDisponibles = stockJson.get("unidadesDisponibles").asInt();
+        JsonNode stockJson = 
+                objectMapper.readTree(stockResponseBody);
+        int unidadesDisponibles = 
+                stockJson.get("unidadesDisponibles").asInt();
         return new AsyncResult<>(unidadesDisponibles);
     }
 
 
     @Async
     public Future<Producto> obtenerFichaCatalogoAsync(String referencia) {
-        String catalogoURL = "http://catalogoservice/referencias/" + referencia;
-        Producto producto = restTemplate.getForObject(catalogoURL, Producto.class);
+        String catalogoURL = 
+                "http://catalogoservice/referencias/" + referencia;
+        Producto producto = 
+                restTemplate.getForObject(catalogoURL, Producto.class);
         return new AsyncResult<>(producto);
     }
     
 }
+
+
+
+
+
+
+
+

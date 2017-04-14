@@ -12,7 +12,8 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "referencia")
 public class StockProducto {
+
     private String referencia;
     private int unidadesDisponibles;
-    
+
 }

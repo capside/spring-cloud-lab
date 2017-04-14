@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.javiermorneo.springcloud</groupId>
-    <artifactId>productoservice</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <groupId>org.javiermoreno.springcloud</groupId>
+    <artifactId>fichaservice</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>20-ProductoService</name>
+    <name>20-FichaService</name>
     <description>Un microservicio que se alimenta y enriquece datos de otros.</description>
 
     <properties>
@@ -16,14 +16,15 @@
         <java.version>1.8</java.version>
     </properties>
 
-   <parent>
+
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.4.RELEASE</version>
+        <version>1.5.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
- 
+
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -53,19 +54,19 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-	
+
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-parent</artifactId>
-                <version>1.0.2.RELEASE</version>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Camden.SR5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>
-	
+    </dependencyManagement>        
+		
     <build>
         <plugins>
             <plugin>

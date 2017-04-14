@@ -2,6 +2,8 @@ server:
   port: 8761
 
 eureka:
+  waitTimeInMsWhenSyncEmpty: 0  
+  numberRegistrySyncRetries : 0 
   instance:
     hostname: localhost
     leaseRenewalInternalInSeconds: 5 #heartbeat, 3 ok hasta visible
@@ -13,4 +15,6 @@ eureka:
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   server:
-      enable-self-preservation: false
+    enable-self-preservation: false
+    waitTimeInMsWhenSyncEmpty: 0  
+    numberRegistrySyncRetries : 0 

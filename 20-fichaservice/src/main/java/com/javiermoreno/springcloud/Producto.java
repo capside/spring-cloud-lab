@@ -11,9 +11,9 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(of="referencia")
+@EqualsAndHashCode(of = "referencia")
 public class Producto {
-    
+
     private String referencia;
     private String modelo;
     private String sexo;
@@ -25,9 +25,9 @@ public class Producto {
     public Producto() {
     }
 
-    
     public void aplicarDescuento(BigDecimal descuento) {
-        this.precio = this.precio.multiply(BigDecimal.ONE.subtract(descuento));
+        this.precio = this.precio.multiply(
+                BigDecimal.ONE.subtract(descuento));
     }
-    
+
 }
