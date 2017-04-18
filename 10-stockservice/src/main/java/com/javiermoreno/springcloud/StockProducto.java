@@ -8,9 +8,7 @@ import lombok.EqualsAndHashCode;
  *
  * @author ciberado
  */
-@Data
-@AllArgsConstructor
-@EqualsAndHashCode(of = "referencia")
+/* TODO: Set Lombok pojo annotations */
 public class StockProducto {
 
     private String referencia;

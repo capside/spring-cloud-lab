@@ -11,13 +11,12 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableAsync
+/* TODO: Activate asynchronous behaviour */
 @EnableDiscoveryClient
 public class Application {
 
     @Bean
-    @LoadBalanced
-    /* LoadBalanced to use Eureka through Ribbon. */
+    /* TODO: LoadBalanced to use Eureka through Ribbon. */
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }

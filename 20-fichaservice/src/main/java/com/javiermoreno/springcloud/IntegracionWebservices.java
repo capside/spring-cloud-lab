@@ -29,7 +29,7 @@ public class IntegracionWebservices {
     }
    
 
-    @Async
+    /* TODO: Activate asynchronous behaviour */
     public Future<Integer> obtenerStockAsync(String referencia) throws IOException {
         log.info(String.format("Obteniendo stock remoto asíncronamente para %s.", referencia));
         // Atiende qué bonito: indicas el nombre del servicio y restTemplate es capaz de recuperar su @
@@ -46,7 +46,7 @@ public class IntegracionWebservices {
     }
 
 
-    @Async
+    /* TODO: Activate asynchronous behaviour */
     public Future<Producto> obtenerFichaCatalogoAsync(String referencia) {
         log.info(String.format("Obteniendo ficha remota asíncronamente para %s.", referencia));
         String catalogoURL = 

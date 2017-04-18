@@ -11,16 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@EnableDiscoveryClient
+/* TODO: Enable discovery client. */
 @RestController
 @CommonsLog
 public class StockApplication {
 
     @RequestMapping(value = "/productos/{referencia}/stock", method = RequestMethod.GET)
     public StockProducto obtenerStockProducto(@PathVariable String referencia) {
-        log.info(String.format("Recuperando stock de producto %s.", referencia));
-        StockProducto prod = new StockProducto(referencia, (int) (Math.random() * 10));
-        return prod;
+        /* TODO: Create a fake implemenation. */
     }
 
     public static void main(String[] args) {
