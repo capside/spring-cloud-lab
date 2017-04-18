@@ -2,6 +2,7 @@
 
 ![Arquitectura general](esquema.png)
 
+---
 ## Motivación
 
 * En un mundo cloudificado no hay ninguna razón para pensar que tu proyecto no va a petarlo nunca. Be ready.
@@ -10,6 +11,7 @@
 
 
 
+---
 ## Un webservice cualquiera
 
 * https://sketchboard.me/RzqMrLEaynHv#/
@@ -19,11 +21,43 @@
   
 
 
+---
 ## The fucking manual
 
 * https://github.com/spring-cloud-samples
 
+---
+## Configuración dinámica y distribuída: servidor
 
+* RTFM: http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html
+* Un buen pom vale más que mil imágenes: http://pastebin.com/HdrwsLF6
+* spring-cloud-config-server
+* Crea un grupo de ymls/properties en un repositorio git para guardar la configuración
+* Crea un servidor con la anotación @SpringBootApplication y @EnableConfigServer
+* Fija el git desde el que cargar los ficheros con spring.cloud.config.server.git.uri
+* Usa el endpoint /env para conocer su entorno 
+* Utiliza el endpoint /health para saber si están bien
+* Usa /trace para conocer los últimos accesos
+* curl localhost:8888/promociones/default para recuperar la rama default de la aplicación promociones 
+* Puedes usar branches para varios escenarios (dev, stage, prod)
+* Cambiar un valor en el git se refleja inmediatamente en /promociones/default 
+
+
+
+---
+## Configuración dinámica y distribuída: cliente
+
+* spring-cloud-config-client
+* spring.cloud.config.uri indica dónde buscar la configuración 
+* @RefreshScope para indicar que debe recargarse ante un cambio de configuración
+* GET /env permite comprobar el valor de las variables en todo momento
+* POST /refresh recrea los beans marcados con @RefreshScope
+* POST /restart para reiniciar el contexto (desactivado por defecto)
+
+
+
+
+---
 ## Registro de servicios 
 
 * Eureka ftw 
@@ -43,60 +77,34 @@
 
 
 
+---
 ## Registro en Eureka
 
 * server.port=0 para indicar que se desea un puerto arbitrario
 * @EnableDiscoveryClient
-* Ojo: por defecto ejecutar varios clientes en la misma mÃ¡quina harÃ¡ que solo se registre uno de ellos (ver Making the Eureka Instance ID Unique) 
+* Ojo: por defecto ejecutar varios clientes en la misma máquina hará que solo se registre uno de ellos (ver Making the Eureka Instance ID Unique) 
 
 
 
+---
 ## Composición de webservices: Eureka + Ribbon
 
 * Supone el layer de valor agregado
 * spring-cloud-starter-eureka + @EnableDiscoveryClient activa la integración con Eureka 
 * spring-cloud-starter-ribbon integra los servicios de loadbalancer en cliente
-* Ribbon se integra automÃ¡ticamente con RestTemplate para buscar instancias basadas en nombre de servicio 
-
-
+* Ribbon se integra automáticamente con RestTemplate para buscar instancias basadas en nombre de servicio 
   
-## Configuración dinámica y distribuída: servidor
-
-* RTFM: http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html
-* Un buen pom vale mÃ¡s que mil imÃ¡genes: http://pastebin.com/HdrwsLF6
-* spring-cloud-config-server
-* Crea un grupo de ymls/properties en un repositorio git para guardar la configuración
-* Crea un servidor con la anotación @SpringBootApplication y @EnableConfigServer
-* Fija el git desde el que cargar los ficheros con spring.cloud.config.server.git.uri
-* Usa el endpoint /env para conocer su entorno 
-* Utiliza el endpoint /health para saber si están bien
-* Usa /trace para conocer los últimos accesos
-* curl localhost:8888/promociones/default para recuperar la rama default de la aplicación promociones 
-* Puedes usar branches para varios escenarios (dev, stage, prod)
-* Cambiar un valor en el git se refleja inmediatamente en /promociones/default 
-
-
-
-## Configuración dinámica y distribuída: cliente
-
-* spring-cloud-config-client
-* spring.cloud.config.uri indica dónde buscar la configuración 
-* @RefreshScope para indicar que debe recargarse ante un cambio de configuración
-* GET /env permite comprobar el valor de las variables en todo momento
-* POST /refresh recrea los beans marcados con @RefreshScope
-* POST /restart para reiniciar el contexto (desactivado por defecto)
-
-
-
+---
 ## Zuul
 
 * Enrutado para microservicios (load balancer, proxy inverso, whatever)
 * Edge endpoint 
-* Autentificación, log, routing dinÃ¡mico, etc
+* Autentificación, log, routing dinámico, etc
 * Integrado con Eureka y Hystrix 
 * @EnableZuulProxy (para enrutar) y @EnableZuulServer (para solo filtrar)
 * Cuidado con subir ficheros grandes a través de él sin configurarlo correctamente
 
+---
 ## Sleuth
 
 * Permite tracibilidad entre flotas de microservicios y servidores
@@ -109,6 +117,7 @@
 * Agrega a cada log service-name, trace-id, span-id
 * Puede configurarse con spring.sleuth.sampler.percentage
 
+---
 ## Zipkin
 
 * Permite agregar spans y visualizar traces
@@ -119,6 +128,7 @@ docker-compose up
 ```
 * http://localhost:9411
 
+---
 ## Circuit breakers
 
 * Hystrix ftw
@@ -129,6 +139,7 @@ docker-compose up
 * Permite reabrir parcialmente el servicio si detecta que se ha corregido
 * Fail: problemas con el cóndigo asíncrono
 
+---
 ## Edge services
 
 * Zuul funciona como un punto de entrada en el sistema
@@ -138,6 +149,7 @@ docker-compose up
 
 
 
+---
 ## Las rutas
 
 * eureka: http://localhost:8761
